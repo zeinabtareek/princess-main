@@ -18,11 +18,23 @@ class Profile extends StatefulWidget {
 
 class _state extends State<Profile> {
   TextEditingController name = new TextEditingController();
+
   // TextEditingController email = new TextEditingController();
   TextEditingController phone = new TextEditingController();
+  TextEditingController oldpassword = new TextEditingController();
+  TextEditingController password = new TextEditingController();
+  TextEditingController password_confirmation = new TextEditingController();
   bool loading = true;
   Map<String, dynamic> data = {};
   bool loadingBtn = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<AuthProvider>(context, listen: false).getUserInfo();
+    loadData();
+  }
 
   loadData() async {
     var authProvider = Provider.of<AuthProvider>(context, listen: false);
@@ -31,17 +43,13 @@ class _state extends State<Profile> {
     }
     setState(() {
       loading = false;
-       name.text = data["name"];
+      name.text = data["name"];
       // email.text = data["email"];
       phone.text = data["phone"];
+      // password.text = data["password"];
+      // oldpassword.text = data["oldpassword"];
+      // password_confirmation.text = data["password_confirmation"];
     });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    loadData();
   }
 
   @override
@@ -316,6 +324,169 @@ class _state extends State<Profile> {
                                         ),
                                         controller: phone,
                                       ),
+                                      Text("الرقم السرى القديم : "),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      TextFormField(
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        onFieldSubmitted: (value) {
+                                          FocusScope.of(context)
+                                              .requestFocus(FocusNode());
+                                        },
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'ادخل رقم السرى القديم';
+                                          }
+                                          return null;
+                                        },
+                                        //textDirection: lang=="ar"?TextDirection.rtl:TextDirection.ltr,
+                                        decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.only(
+                                              right: 15,
+                                              left: 15,
+                                              top: 0,
+                                              bottom: 0),
+                                          enabledBorder: new OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: BorderSide(
+                                                  color: Colors.black12)),
+                                          focusedBorder: new OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: BorderSide(
+                                                  color: Colors.black12)),
+                                          focusedErrorBorder:
+                                              new OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black12)),
+                                          errorBorder: new OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: BorderSide(
+                                                  color: Colors.red)),
+                                          hintText: "الرقم السرى القديم",
+                                          errorStyle: TextStyle(fontSize: 0),
+                                          hintStyle: TextStyle(
+                                              color: Colors.black45,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                        ),
+                                        controller: oldpassword,
+                                      ),
+                                      Text("الرقم السرى الجديد : "),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      TextFormField(
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        onFieldSubmitted: (value) {
+                                          FocusScope.of(context)
+                                              .requestFocus(FocusNode());
+                                        },
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'ادخل الرقم السرى الجديد ';
+                                          }
+                                          return null;
+                                        },
+                                        //textDirection: lang=="ar"?TextDirection.rtl:TextDirection.ltr,
+                                        decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.only(
+                                              right: 15,
+                                              left: 15,
+                                              top: 0,
+                                              bottom: 0),
+                                          enabledBorder: new OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: BorderSide(
+                                                  color: Colors.black12)),
+                                          focusedBorder: new OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: BorderSide(
+                                                  color: Colors.black12)),
+                                          focusedErrorBorder:
+                                              new OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black12)),
+                                          errorBorder: new OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: BorderSide(
+                                                  color: Colors.red)),
+                                          hintText: "الرقم السرى الجديد",
+                                          errorStyle: TextStyle(fontSize: 0),
+                                          hintStyle: TextStyle(
+                                              color: Colors.black45,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                        ),
+                                        controller: password,
+                                      ),
+                                      Text(" اعد كتابه الرقم السرى الجديد : "),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      TextFormField(
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        onFieldSubmitted: (value) {
+                                          FocusScope.of(context)
+                                              .requestFocus(FocusNode());
+                                        },
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'اعد كنابه الرقم السرى ';
+                                          }
+                                          return null;
+                                        },
+                                        //textDirection: lang=="ar"?TextDirection.rtl:TextDirection.ltr,
+                                        decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.only(
+                                              right: 15,
+                                              left: 15,
+                                              top: 0,
+                                              bottom: 0),
+                                          enabledBorder: new OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: BorderSide(
+                                                  color: Colors.black12)),
+                                          focusedBorder: new OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: BorderSide(
+                                                  color: Colors.black12)),
+                                          focusedErrorBorder:
+                                              new OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black12)),
+                                          errorBorder: new OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              borderSide: BorderSide(
+                                                  color: Colors.red)),
+                                          hintText:
+                                              "اعد كتابه الرقم السرى الجديد",
+                                          errorStyle: TextStyle(fontSize: 0),
+                                          hintStyle: TextStyle(
+                                              color: Colors.black45,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12),
+                                        ),
+                                        controller: password_confirmation,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -329,7 +500,14 @@ class _state extends State<Profile> {
                                       loadingBtn = true;
                                     });
                                     await authProvider.editProfile(
-                                        name.text, phone.text);
+                                      name.text,
+                                      phone.text,
+                                    );
+                                    await authProvider.editProfilePassword(
+                                        password: password.text,
+                                        oldpassword: oldpassword.text,
+                                        password_confirmation:
+                                            password_confirmation.text);
                                     FlutterToastr.show(
                                         authProvider.updateInfo["message"],
                                         context,

@@ -83,7 +83,6 @@ class _OfferScreenState extends State<OfferScreen> {
                                 Navigator.push(
                                     context,
                                     GlobalFunction.route(OfferDetails(
-                                      description: provider.content,
                                       offerModel: provider.offers[index],
                                     )));
                               },

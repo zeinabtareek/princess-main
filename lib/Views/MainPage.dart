@@ -200,7 +200,6 @@ class _state extends State<MainPage> {
                               Navigator.push(
                                   context,
                                   GlobalFunction.route(OfferDetails(
-                                    description: mainProvider.content,
                                     offerModel: mainProvider.offers[index],
                                   )));
                             },

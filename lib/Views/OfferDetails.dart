@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:princess/Config/GlobalFunction.dart';
 import 'package:princess/Models/OfferModel.dart';
 import 'package:princess/Provider/MainProvider.dart';
@@ -14,9 +14,8 @@ import 'Booking.dart';
 
 class OfferDetails extends StatefulWidget {
   OfferModel offerModel;
-  String? description;
 
-  OfferDetails({required this.offerModel, this.description});
+  OfferDetails({required this.offerModel, });
 
   @override
   State<StatefulWidget> createState() {
@@ -121,12 +120,15 @@ class _state extends State<OfferDetails> {
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     Container(
-                      width: w * .9,
-                      child: Text(
-                        widget.description!,
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ),
+                        width: w * .9,
+                        child: Html(
+                          data: offerModel.description,
+                        )
+                        // Text(
+                        //   widget.description!,
+                        //   style: TextStyle(fontSize: 12),
+                        // ),
+                        ),
                     SizedBox(
                       height: 5,
                     ),

@@ -179,7 +179,10 @@ class AuthProvider extends ChangeNotifier {
     return userInfo;
   }
 
-  Future<void> editProfile(String name, String phone) async {
+  Future<void> editProfile(
+    String name,
+    String phone,
+  ) async {
     String url = ServicesConfig.base_url + "/profile";
     print(url);
     var body = {
@@ -195,6 +198,35 @@ class AuthProvider extends ChangeNotifier {
       print(responce.body);
       if (responce.body.isNotEmpty) {
         updateInfo = json.decode(responce.body);
+        print(responce.statusCode);
+        print(updateInfo);
+        notifyListeners();
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> editProfilePassword(
+      {String? oldpassword,
+      String? password,
+      String? password_confirmation}) async {
+    String url = ServicesConfig.base_url + "/changePassword";
+    print(url);
+    var body = {
+      "oldpassword": oldpassword,
+      'password': password,
+      "password_confirmation": password_confirmation
+    };
+    print(body);
+    var header = await ServicesConfig.getHeaderWithToken();
+    try {
+      final responce =
+          await http.put(Uri.parse(url), body: body, headers: header);
+      print(responce.body);
+      if (responce.body.isNotEmpty) {
+        updateInfo = json.decode(responce.body);
+        print(responce.statusCode);
         print(updateInfo);
         notifyListeners();
       }
