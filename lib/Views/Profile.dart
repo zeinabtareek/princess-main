@@ -32,20 +32,21 @@ class _state extends State<Profile> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<AuthProvider>(context, listen: false).getUserInfo();
+    Provider.of<AuthProvider>(context, listen: false).getUserInfo(context);
     loadData();
   }
 
   loadData() async {
     var authProvider = Provider.of<AuthProvider>(context, listen: false);
     if (MyApp.Id != 0) {
-      data = await authProvider.getUserInfo();
+      data = await authProvider.getUserInfo(context);
+      print(data);
     }
     setState(() {
       loading = false;
       name.text = data["name"];
       // email.text = data["email"];
-      phone.text = data["phone"];
+       phone.text = data ["phone"];
       // password.text = data["password"];
       // oldpassword.text = data["oldpassword"];
       // password_confirmation.text = data["password_confirmation"];
@@ -169,6 +170,7 @@ class _state extends State<Profile> {
                                               .requestFocus(FocusNode());
                                         },
                                         validator: (value) {
+
                                           if (value!.isEmpty) {
                                             return 'ادخل الاسم';
                                           }

@@ -61,7 +61,7 @@ class _state extends State<AboutApp>{
                 padding: EdgeInsets.only(bottom: 15),
                 alignment: Alignment.center,
                 child: Text(mainProvider.AppInfo["about_us_ar"]
-                  ,style: TextStyle(fontSize: 12),textAlign: TextAlign.center,),
+                  ,style: TextStyle(fontSize: 16),textAlign: TextAlign.center,),
               ),
             )),
 

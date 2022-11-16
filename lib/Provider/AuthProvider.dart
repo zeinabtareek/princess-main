@@ -3,10 +3,12 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart';
+import 'package:princess/Views/Login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
@@ -159,7 +161,7 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
-  Future<Map<String, dynamic>> getUserInfo() async {
+  Future<Map<String, dynamic>> getUserInfo(BuildContext context) async {
     String url = ServicesConfig.base_url + "/user";
     print(url);
     var header = await ServicesConfig.getHeaderWithToken();
@@ -168,10 +170,21 @@ class AuthProvider extends ChangeNotifier {
     try {
       final responce = await http.get(Uri.parse(url), headers: header);
       print(responce.body);
-      if (responce.body.isNotEmpty) {
+      print(responce.statusCode);
+      if (responce.statusCode == 200) {
         userInfo = json.decode(responce.body)["data"];
         print("----------------------------------------------------");
         notifyListeners();
+      } else if (responce.statusCode == 401) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Login(
+                      type: "login",
+                    )));
+        print("----------------------------------------------------");
+        print(responce.statusCode);
+        print("object");
       }
     } catch (e) {
       print(e.toString());
@@ -296,7 +309,7 @@ class AuthProvider extends ChangeNotifier {
           FlutterToastr.show("Image Has Been Updated", context,
               duration: FlutterToastr.lengthShort,
               position: FlutterToastr.center);
-          this.getUserInfo();
+          this.getUserInfo(context);
           loadingImage = false;
           notifyListeners();
         } else {

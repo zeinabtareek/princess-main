@@ -59,7 +59,7 @@ class _state extends State<Usages>{
                   padding: EdgeInsets.only(bottom: 15),
                   alignment: Alignment.center,
                   child: Text(mainProvider.AppInfo["policy_ar"]
-                    ,style: TextStyle(fontSize: 12),textAlign: TextAlign.center,),
+                    ,style: TextStyle(fontSize: 16),textAlign: TextAlign.center,),
                 ),
               )),
 

@@ -58,7 +58,7 @@ class _state extends State<Policies>{
                   width: MediaQuery.of(context).size.width*.9,
                   padding: EdgeInsets.only(bottom: 15),
                   alignment: Alignment.center,
-                  child: Text(mainProvider.AppInfo["privacy_ar"],style: TextStyle(fontSize: 12),textAlign: TextAlign.center,),
+                  child: Text(mainProvider.AppInfo["privacy_ar"],style: TextStyle(fontSize: 16),textAlign: TextAlign.center,),
                 ),
               )),
 
